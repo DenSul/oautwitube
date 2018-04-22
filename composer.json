@@ -1,6 +1,7 @@
 {
     "version": "1.0.0",
     "name": "densul/oautwitube",
+    "license": "MIT",
     "description": "OAuth Authorization via tweet and youtube",
     "authors": [
         {
