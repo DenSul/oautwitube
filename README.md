@@ -9,7 +9,7 @@
 
 
 
-#**_Установка_**
+##**_Установка_**
 
 ```
 composer require densul/oautwitube
@@ -39,7 +39,7 @@ php artisan vendor:publish
 
 Для площадки youtube подтребуется включить API 3, [Здесь](https://console.developers.google.com/apis/api/youtube.googleapis.com/).
 
-#**_Использование_**
+##**_Использование_**
 
 В шаблонизаторе:
 ```HTML
