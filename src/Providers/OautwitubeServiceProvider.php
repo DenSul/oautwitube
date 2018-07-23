@@ -2,16 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: mio
- * Date: 22.04.18
- * Time: 17:34
+ * Date: 23.07.2018
+ * Time: 8:48
  */
 
 namespace densul\oautwitube\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider,
+    densul\oautwitube\OautwitubeManager,
+    densul\oautwitube\Contracts\Factory;
 
-class YoutubeServiceProvider extends ServiceProvider
+class OautwitubeServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
+
     public function register()
     {
         $this->registerServices();
@@ -24,7 +28,9 @@ class YoutubeServiceProvider extends ServiceProvider
 
     private function registerServices()
     {
-        $this->app->bind('densul\oautwitube\Services\YoutubeApiService', 'densul\oautwitube\Services\YoutubeApiService');
+        $this->app->singleton(Factory::class, function ($app) {
+            return new OautwitubeManager($app);
+        });
     }
 
     private function addConfig()
@@ -32,5 +38,10 @@ class YoutubeServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../config/oautwitube-api.php' => config_path('oautwitube-api.php')
         ]);
+    }
+
+    public function provides()
+    {
+        return [Factory::class];
     }
 }

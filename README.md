@@ -9,43 +9,40 @@
 
 
 
-##**_Установка_**
+#**_Установка_**
 
 ```
 composer require densul/oautwitube
 ```
 
-Затем добавить в файле `config/app.php`, добавить нужный Вам сервис-провайдер в providers.
-Можно сразу оба:
+Затем добавить в файле `config/app.php`, добавить сервис-провайдер
 
 ```PHP
-densul\oautwitube\Providers\TwitchServiceProvider::class,
-densul\oautwitube\Providers\YoutubeServiceProvider::class
+densul\oautwitube\Providers\OautwitubeServiceProvider::class
 ```
 
-Там же задать алиасы:
+Там же задать алиас:
 
 ```PHP
-'TwitchApi' => densul\oautwitube\Facades\TwitchServiceFacade::class,
-'YoutubeApi' => densul\oautwitube\Facades\YoutubeServiceFacade::class
+'Twitube' => densul\oautwitube\Facades\OautwitubeServiceFacade::class
 ```
 
 Далее создаем конфиг:
 ```
 php artisan vendor:publish
 ```
-Выбираем любой сервис-провайдер, если Вы добавили несколько.
+Выбираем наш сервис провайдер
 После этого появится конфиг в `/config/oautwitube-api.php`
 
 Для площадки youtube подтребуется включить API 3, [Здесь](https://console.developers.google.com/apis/api/youtube.googleapis.com/).
 
-##**_Использование_**
+#**_Использование_**
 
 В шаблонизаторе:
 ```HTML
 <div class="links">
-    <a href="{{ TwitchApi::AuthenticationURL() }}">Auth Twitch</a>
-    <a href="{{ YoutubeApi::AuthenticationURL() }}">Auth YouTube</a>
+    <a href="{{ Twitube::driver('twitch')->AuthenticationURL() }}">Auth Twitch</a>
+    <a href="{{ Twitube::driver('youtube')->AuthenticationURL() }}">Auth YouTube</a>
 </div>
 ```
 Соответственно какой Вы задатите redirect_url в конфиге, создаем роуты:
@@ -61,8 +58,8 @@ public function twitchLogin(Request $request)
 {
 
     $code  = $request->input('code');
-    $token = \TwitchApi::RequestToken($code);
-    $user  = \TwitchApi::AuthenticatedUser($token);
+    $token = Twitube::driver('twitch')->RequestToken($code);
+    $user  = Twitube::driver('twitch')->AuthenticatedUser($token);
 
     dd($user);
 }
@@ -70,8 +67,8 @@ public function twitchLogin(Request $request)
 public function youtubeLogin(Request $request)
 {
     $code   = $request->input('code');
-    $token  = \YoutubeApi::RequestToken($code);
-    $user   = \YoutubeApi::AuthenticatedUser($token);
+    $token  = Twitube::driver('youtube')->RequestToken($code);
+    $user   = Twitube::driver('youtube')->AuthenticatedUser($token);
     dd($user);
 }
 ```
