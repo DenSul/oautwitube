@@ -10,7 +10,7 @@
 UPD: 23.07.2018 добавлена возможность авторизации по Steam.
 English soon
 
-#**_Установка_**
+# **_Установка_**
 
 ```
 composer require densul/oautwitube
@@ -38,7 +38,7 @@ php artisan vendor:publish
 Для площадки youtube подтребуется включить API 3, [здесь](https://console.developers.google.com/apis/api/youtube.googleapis.com/).
 Для площадки steam, ключ получаем тут [здесь](https://steamcommunity.com/dev/apikey).
 
-#**_Использование_**
+# **_Использование_**
 
 В шаблонизаторе:
 ```HTML
