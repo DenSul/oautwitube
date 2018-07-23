@@ -20,7 +20,7 @@ class Authentication extends BaseApi
     {
         $clientId    = config('oautwitube-api.Twitch.client_id');
         $scopes      = implode('+', config('oautwitube-api.Twitch.scopes'));
-        $redirectURL = config('oautwitube-api.Twitch.redirect_url');
+        $redirectURL = url(config('oautwitube-api.Twitch.redirect_url'));
 
         return config('oautwitube-api.Twitch.api_url') . '/kraken/oauth2/authorize?response_type=code&client_id=' . $clientId . '&redirect_uri=' . $redirectURL . '&scope=' . $scopes;
     }

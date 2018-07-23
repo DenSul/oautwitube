@@ -15,7 +15,7 @@ class Authentication extends BaseApi
     {
         $client_id   = config('oautwitube-api.Youtube.client_id');
         $scopes      = implode('+', config('oautwitube-api.Youtube.scopes'));
-        $redirectURL = config('oautwitube-api.Youtube.redirect_url');
+        $redirectURL = url(config('oautwitube-api.Youtube.redirect_url'));
 
 
         return 'https://accounts.google.com/o/oauth2/v2/auth?scope='.$scopes.'&access_type=offline&include_granted_scopes=true'.

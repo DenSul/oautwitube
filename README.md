@@ -7,7 +7,8 @@
 Данный пакет предназначен для laravel 5.6+, для работы с API youtube.com и twitch.tv.
 В данное время доступна только oAuth авторизация и получение информации о текущем пользователе с этих ресурсов. 
 
-
+UPD: 23.07.2018 добавлена возможность авторизации по Steam.
+English soon
 
 #**_Установка_**
 
@@ -34,7 +35,8 @@ php artisan vendor:publish
 Выбираем наш сервис провайдер
 После этого появится конфиг в `/config/oautwitube-api.php`
 
-Для площадки youtube подтребуется включить API 3, [Здесь](https://console.developers.google.com/apis/api/youtube.googleapis.com/).
+Для площадки youtube подтребуется включить API 3, [здесь](https://console.developers.google.com/apis/api/youtube.googleapis.com/).
+Для площадки steam, ключ получаем тут [здесь](https://steamcommunity.com/dev/apikey).
 
 #**_Использование_**
 
@@ -45,11 +47,21 @@ php artisan vendor:publish
     <a href="{{ Twitube::driver('youtube')->AuthenticationURL() }}">Auth YouTube</a>
 </div>
 ```
+В случае стима, можно поставить кнопки уже с готовой ссылкой:
+```HTML
+{!!  Twitube::driver('steam')->loginButton('small') !!} 
+{!!  Twitube::driver('steam')->loginButton('big') !!}
+
+<!--- simple link ---!>
+Twitube::driver('steam')->AuthenticationURL()
+```
+
 Соответственно какой Вы задатите redirect_url в конфиге, создаем роуты:
 
 ```PHP
 Route::get('/auth', ['as' => 'auth', 'uses' => 'Auth\LoginController@twitchLogin']);
 Route::get('/auth_youtube', ['as' => 'auth', 'uses' => 'Auth\LoginController@youtubeLogin']);
+Route::get('/auth_steam', ['as' => 'auth', 'uses' => 'Auth\LoginController@steamLogin']);
 ```
 
 В LoginController:
@@ -70,6 +82,12 @@ public function youtubeLogin(Request $request)
     $token  = Twitube::driver('youtube')->RequestToken($code);
     $user   = Twitube::driver('youtube')->AuthenticatedUser($token);
     dd($user);
+}
+
+public function steamLogin(Request $request)
+{
+    $user = Twitube::driver('steam')->authenticatedUser();
+    dd($user);  
 }
 ```
 

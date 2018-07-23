@@ -34,5 +34,12 @@ return [
         'scopes' => [
             'https://www.googleapis.com/auth/youtube.readonly'
         ]
+    ],
+    'Steam' => [
+        'api_key' => '',
+        'method' => 'api',
+        'timeout' => 5,
+        'universe' => false,
+        'redirect_url' => '/auth/steam'
     ]
 ];

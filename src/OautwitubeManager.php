@@ -10,6 +10,7 @@ namespace densul\oautwitube;
 
 use densul\oautwitube\Services\TwitchApiService,
     densul\oautwitube\Services\YoutubeApiService,
+    densul\oautwitube\Services\SteamApiService,
     Illuminate\Support\Manager;
 
 class OautwitubeManager extends Manager implements Contracts\Factory
@@ -37,6 +38,20 @@ class OautwitubeManager extends Manager implements Contracts\Factory
     {
         return new YoutubeApiService();
     }
+
+    /**
+     * @return SteamApiService
+     */
+
+    protected function createSteamDriver()
+    {
+        return new SteamApiService();
+    }
+
+    /**
+     * @return string|void
+     * @throws \InvalidArgumentException
+     */
 
     public function getDefaultDriver()
     {
