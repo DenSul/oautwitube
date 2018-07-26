@@ -11,7 +11,8 @@ namespace densul\oautwitube\Services;
 use GuzzleHttp\Exception\ClientException;
 use densul\oautwitube\twitch\API\Authentication,
     densul\oautwitube\twitch\API\BaseApi,
-    densul\oautwitube\twitch\API\Users;
+    densul\oautwitube\twitch\API\Users,
+    densul\oautwitube\twitch\API\Streams;
 
 class TwitchApiService extends BaseApi
 {
@@ -58,5 +59,17 @@ class TwitchApiService extends BaseApi
         $usersAPI = new Users($token);
 
         return $usersAPI->authenticatedUser();
+    }
+
+    /**
+     * @param $game
+     * @param $language
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
+
+    public function getStreams($game, $language)
+    {
+        $streams = new Streams();
+        return $streams->getStreamsInGame($game, $language);
     }
 }

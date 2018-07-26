@@ -28,7 +28,7 @@ class BaseApi
             $this->setToken($token);
 
         $this->client = new Client([
-            'base_url'  => config('oautwitube-api.Twitch.api_url'),
+            'base_url'  => config('oautwitube-api.Twitch.api_url'), // not working, suka bleat
             'defaults' => [
                 'headers' => ['Accept' => 'application/vnd.twitchtv[v3]+json']
             ]
@@ -60,20 +60,25 @@ class BaseApi
      * @param $type
      * @param $url
      * @param $token
+     * @param $params
      * @return \GuzzleHttp\Message\Request|\GuzzleHttp\Message\RequestInterface
      */
 
-    protected function createRequest($type, $url, $token)
+    protected function createRequest($type, $url, $token = null, $params = [])
     {
-        return $this->client->createRequest($type, $url, $this->getDefaultHeaders($token));
+        $headers = $this->getDefaultHeaders($token, $params);
+
+
+        return $this->client->request($type, $url, $headers);
     }
 
     /**
      * @param null $token
+     * @param array $params
      * @return array
      */
 
-    protected function getDefaultHeaders($token = null)
+    protected function getDefaultHeaders($token = null, $params = [])
     {
         $headers = [
             'headers' => [
@@ -84,6 +89,11 @@ class BaseApi
         if ( $token != null )
             $headers['headers']['Authorization'] = 'OAuth ' . $token;
 
+        if ( config('oautwitube-api.Twitch.client_id') )
+            $headers['headers']['Client-ID'] = config('oautwitube-api.Twitch.client_id');
+
+        if ( $params )
+            $headers = array_merge($headers, $params);
 
         return $headers;
     }
