@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SharedFileColors">
+    <fileColor scope="App sources" color="1c4760" />
+    <fileColor scope="Database" color="5c5d1a" />
+    <fileColor scope="Resources (front-end)" color="58224c" />
+    <fileColor scope="Project tests" color="135137" />
+    <fileColor scope="CI, DI tools &amp; configs" color="402823" />
+    <fileColor scope="Storage files" color="Yellow" />
+  </component>
+</project>

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: mio
  * Date: 23.07.2018
- * Time: 22:45
+ * Time: 22:45.
  */
 
 namespace densul\oautwitube\steam\API;

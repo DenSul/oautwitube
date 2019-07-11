@@ -3,16 +3,13 @@
  * Created by PhpStorm.
  * User: mio
  * Date: 23.07.2018
- * Time: 17:54
+ * Time: 17:54.
  */
 
 namespace densul\oautwitube\steam\API;
 
-use RuntimeException;
-use Illuminate\Support\Fluent,
-    densul\oautwitube\steam\API\SteamInfo,
-    Request;
-
+use Illuminate\Support\Fluent;
+use Request;
 
 class Users extends BaseApi
 {
@@ -20,7 +17,7 @@ class Users extends BaseApi
     public $steamId;
     /** @var SteamInfo */
     public $steamInfo;
-    /** @var string  */
+    /** @var string */
     const STEAM_INFO_URL = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=%s&steamids=%s';
 
     private function requestIsValid()
@@ -45,6 +42,7 @@ class Users extends BaseApi
 
         $this->parseSteamID();
         $this->parseInfo();
+
         return $results->is_valid == 'true';
     }
 
@@ -76,6 +74,7 @@ class Users extends BaseApi
             $line = explode(':', $line, 2);
             $parsed[$line[0]] = $line[1];
         }
+
         return new Fluent($parsed);
     }
 
@@ -91,18 +90,17 @@ class Users extends BaseApi
 
         $signedParams = explode(',', Request::get('openid_signed'));
 
-        foreach ($signedParams as $item)
-        {
+        foreach ($signedParams as $item) {
             $value = Request::get('openid_'.str_replace('.', '_', $item));
             $params['openid.'.$item] = get_magic_quotes_gpc() ? stripslashes($value) : $value;
         }
+
         return $params;
     }
 
     /**
      * @return \densul\oautwitube\steam\API\SteamInfo
      */
-
     public function getUserInfo()
     {
         return $this->steamInfo;
@@ -111,7 +109,6 @@ class Users extends BaseApi
     /**
      * @return int
      */
-
     public function getSteamId()
     {
         return $this->steamId;
@@ -120,7 +117,6 @@ class Users extends BaseApi
     /**
      * @return mixed
      */
-
     public function authenticatedUser()
     {
         if ($this->validate()) {

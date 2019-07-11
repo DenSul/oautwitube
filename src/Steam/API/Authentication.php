@@ -3,20 +3,19 @@
  * Created by PhpStorm.
  * User: mio
  * Date: 23.07.2018
- * Time: 11:25
+ * Time: 11:25.
  */
 
 namespace densul\oautwitube\steam\API;
-use Request;
 
+use Request;
 
 class Authentication extends BaseApi
 {
     /**
      * @return string
      */
-
-    public function authenticationURL()
+    public function authenticationURL(): string
     {
         $params = [
             'openid.ns'         => self::OPENID_SPECS,
@@ -32,9 +31,9 @@ class Authentication extends BaseApi
 
     /**
      * @param string $type
+     *
      * @return string
      */
-
     public function loginButton($type = 'small')
     {
         return sprintf('<a href="%s"><img src="%s" /></a>', $this->authenticationURL(), self::button($type));
@@ -42,12 +41,11 @@ class Authentication extends BaseApi
 
     /**
      * @param string $type
+     *
      * @return string
      */
-
     public static function button($type = 'small')
     {
         return 'https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_0'.($type == 'small' ? 1 : 2).'.png';
     }
-
 }

@@ -3,14 +3,14 @@
  * Created by PhpStorm.
  * User: mio
  * Date: 23.07.2018
- * Time: 8:48
+ * Time: 8:48.
  */
 
 namespace densul\oautwitube\Providers;
 
-use Illuminate\Support\ServiceProvider,
-    densul\oautwitube\OautwitubeManager,
-    densul\oautwitube\Contracts\Factory;
+use densul\oautwitube\Contracts\Factory;
+use densul\oautwitube\OautwitubeManager;
+use Illuminate\Support\ServiceProvider;
 
 class OautwitubeServiceProvider extends ServiceProvider
 {
@@ -36,7 +36,7 @@ class OautwitubeServiceProvider extends ServiceProvider
     private function addConfig()
     {
         $this->publishes([
-            __DIR__ . '/../../config/oautwitube-api.php' => config_path('oautwitube-api.php')
+            __DIR__.'/../../config/oautwitube-api.php' => config_path('oautwitube-api.php'),
         ]);
     }
 
